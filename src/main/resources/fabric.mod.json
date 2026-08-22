@@ -24,22 +24,20 @@
     ],
     "client": [
       "com.github.Soulphur0.ElytraAeronauticsClient"
-    ],
-    "preLaunch": [
-      "com.llamalad7.mixinextras.MixinExtrasBootstrap::init"
     ]
   },
   "mixins": [
-    "elytraaeronautics.mixins.json"
+    "elytraaeronautics.mixins.json",
+    {
+      "config": "elytraaeronautics.client.mixins.json",
+      "environment": "client"
+    }
   ],
 
   "depends": {
-    "fabricloader": ">=0.15.6",
-    "fabric": ">=0.95.1+1.20.4",
-    "minecraft": "1.20.4",
-    "java": ">=17"
-  },
-  "suggests": {
-    "modmenu": "*"
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~26.2",
+    "java": ">=25",
+    "fabric-api": "*"
   }
 }

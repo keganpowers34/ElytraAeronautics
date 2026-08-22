@@ -1,30 +1,30 @@
 package com.github.Soulphur0.config.command;
 
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 
 public class EanCommandHelp {
 
     // : FLIGHT CONFIG ---------------------------------------------------------------------------------------------------
-    public static Text setAltitudeDeterminesSpeed(){
-        return Text.literal("\n")
-                .append(Text.literal("Altitude determines flight speed").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [true/false]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component setAltitudeDeterminesSpeed(){
+        return Component.literal("\n")
+                .append(Component.literal("Altitude determines flight speed").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [true/false]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Makes elytra flight faster at higher altitudes.
                       
                         """
                 ))
-                .append(Text.literal("Default value: true").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: true").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text setMinSpeed(){
-        return Text.literal("\n")
-                .append(Text.literal("Minimal flight speed").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component setMinSpeed(){
+        return Component.literal("\n")
+                .append(Component.literal("Minimal flight speed").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Minimal flight speed achieved by travelling at a pitch of 0°.
@@ -34,14 +34,14 @@ public class EanCommandHelp {
                       
                         """
                 ))
-                .append(Text.literal("Default value: 30.35 (m/s) (Vanilla flight speed)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: 30.35 (m/s) (Vanilla flight speed)").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text setMaxSpeed(){
-        return Text.literal("\n")
-                .append(Text.literal("Maximum flight speed").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component setMaxSpeed(){
+        return Component.literal("\n")
+                .append(Component.literal("Maximum flight speed").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Maximum flight speed achieved by travelling at a pitch of 0°.
@@ -53,56 +53,56 @@ public class EanCommandHelp {
                       
                         """
                 ))
-                .append(Text.literal("Default value: 257.22 (m/s)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: 257.22 (m/s)").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text setMinHeight(){
-        return Text.literal("\n")
-                .append(Text.literal("Minimal height").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component setMinHeight(){
+        return Component.literal("\n")
+                .append(Component.literal("Minimal height").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Altitude at which flight speed starts to increase.
                       
                         """
                 ))
-                .append(Text.literal("Default value: 250 (Y)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: 250 (Y)").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text setMaxHeight(){
-        return Text.literal("\n")
-                .append(Text.literal("Maximum height").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component setMaxHeight(){
+        return Component.literal("\n")
+                .append(Component.literal("Maximum height").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Altitude at which flight speed reaches its maximum.
                       
                         """
                 ))
-                .append(Text.literal("Default value: 1000 (Y)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: 1000 (Y)").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text setSneakingRealignsPitch(){
-        return Text.literal("\n")
-                .append(Text.literal("Sneaking realigns pitch").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [true/false]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component setSneakingRealignsPitch(){
+        return Component.literal("\n")
+                .append(Component.literal("Sneaking realigns pitch").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [true/false]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Makes the player realign their pitch when sneaking mid-flight.
                       
                         """
                 ))
-                .append(Text.literal("Default value: true").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: true").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text setRealignAngle(){
-        return Text.literal("\n")
-                .append(Text.literal("Pitch realignment angle").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component setRealignAngle(){
+        return Component.literal("\n")
+                .append(Component.literal("Pitch realignment angle").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Pitch angle at which the player aligns
@@ -112,14 +112,14 @@ public class EanCommandHelp {
                       
                         """
                 ))
-                .append(Text.literal("Default value: 0.0 (degrees)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: 0.0 (degrees)").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text setRealignRate(){
-        return Text.literal("\n")
-                .append(Text.literal("Pitch realignment rate").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component setRealignRate(){
+        return Component.literal("\n")
+                .append(Component.literal("Pitch realignment rate").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Amount of rotation at which players realign
@@ -129,15 +129,15 @@ public class EanCommandHelp {
                       
                         """
                 ))
-                .append(Text.literal("Default value: 0.1 (degrees-per-tick)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: 0.1 (degrees-per-tick)").withStyle(ChatFormatting.AQUA));
     }
 
     // : WORLD RENDERING CONFIG ---------------------------------------------------------------------------------------------------
-    public static Text setUseEanChunkUnloading(){
-        return Text.literal("\n")
-                .append(Text.literal("Use chunk unloading").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [true/false]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component setUseEanChunkUnloading(){
+        return Component.literal("\n")
+                .append(Component.literal("Use chunk unloading").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [true/false]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Stop chunk load or generation given certain set conditions.
@@ -145,14 +145,14 @@ public class EanCommandHelp {
                       
                         """
                 ))
-                .append(Text.literal("Default value: true").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: true").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text setChunkUnloadingCondition(){
-        return Text.literal("\n")
-                .append(Text.literal("Chunk unloading condition").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal("\n[speed/height/speed_or_height/speed_and_height]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component setChunkUnloadingCondition(){
+        return Component.literal("\n")
+                .append(Component.literal("Chunk unloading condition").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal("\n[speed/height/speed_or_height/speed_and_height]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Determines when chunks will stop loading and generating.
@@ -161,14 +161,14 @@ public class EanCommandHelp {
                       
                         """
                 ))
-                .append(Text.literal("Default value: SPEED_OR_HEIGHT").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: SPEED_OR_HEIGHT").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text setChunkUnloadingSpeed(){
-        return Text.literal("\n")
-                .append(Text.literal("Chunk unloading speed threshold").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component setChunkUnloadingSpeed(){
+        return Component.literal("\n")
+                .append(Component.literal("Chunk unloading speed threshold").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Speed at which chunks will stop to load while elytra-flying.
@@ -176,14 +176,14 @@ public class EanCommandHelp {
                       
                         """
                 ))
-                .append(Text.literal("Default value: 100 (m/s)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: 100 (m/s)").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text setChunkUnloadingHeight(){
-        return Text.literal("\n")
-                .append(Text.literal("Chunk unloading height threshold").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component setChunkUnloadingHeight(){
+        return Component.literal("\n")
+                .append(Component.literal("Chunk unloading height threshold").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Altitude at which chunks will stop to load while elytra-flying.
@@ -191,31 +191,31 @@ public class EanCommandHelp {
                       
                         """
                 ))
-                .append(Text.literal("Default value: 320 (Y)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: 320 (Y)").withStyle(ChatFormatting.AQUA));
     }
 
 
     // : CLOUD CONFIG ---------------------------------------------------------------------------------------------------
 
-    public static Text useEanCloudRendering(){
-        return Text.literal("\n")
-                .append(Text.literal("Use custom cloud rendering").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [true/false]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component useEanCloudRendering(){
+        return Component.literal("\n")
+                .append(Component.literal("Use custom cloud rendering").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [true/false]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Use the multi-layer cloud rendering and cloud customization.
                       
                         """
                 ))
-                .append(Text.literal("Default value: true").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: true").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text setCloudLayerAmount(){
-        return Text.literal("\n")
-                .append(Text.literal("Cloud layer amount").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component setCloudLayerAmount(){
+        return Component.literal("\n")
+                .append(Component.literal("Cloud layer amount").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Amount of cloud layers to render.
@@ -223,14 +223,14 @@ public class EanCommandHelp {
                       
                         """
                 ))
-                .append(Text.literal("Default value: 3").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: 3").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text loadPreset(){
-        return Text.literal("\n")
-                .append(Text.literal("Load cloud preset").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [select]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component loadPreset(){
+        return Component.literal("\n")
+                .append(Component.literal("Load cloud preset").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [select]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Use this option to select a cloud preset:
@@ -240,21 +240,21 @@ public class EanCommandHelp {
                       
                         """
                 ))
-                .append(Text.literal("Default value: DEFAULT").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: DEFAULT").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text altitude(){
-        return Text.literal("\n")
-                .append(Text.literal("Layer altitude").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component altitude(){
+        return Component.literal("\n")
+                .append(Component.literal("Layer altitude").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Altitude at which the selected cloud layer/s will render.
                         
                         """
                 ))
-                .append(Text.literal("""
+                .append(Component.literal("""
                         
                         Values of the default layers:
                         
@@ -262,14 +262,14 @@ public class EanCommandHelp {
                         250.0 (speed curve start)
                         1000.0 (speed curve end)
                         
-                        """).formatted(Formatting.AQUA));
+                        """).withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text cloudType(){
-        return Text.literal("\n")
-                .append(Text.literal("Cloud type").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [select]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component cloudType(){
+        return Component.literal("\n")
+                .append(Component.literal("Cloud type").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [select]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         The type of cloud to render.
@@ -283,14 +283,14 @@ public class EanCommandHelp {
 
                         """
                 ))
-                .append(Text.literal("Values of the default layers: FANCY, LOD, LOD").formatted(Formatting.AQUA));
+                .append(Component.literal("Values of the default layers: FANCY, LOD, LOD").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text verticalRenderDistance(){
-        return Text.literal("\n")
-                .append(Text.literal("Vertical render distance").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component verticalRenderDistance(){
+        return Component.literal("\n")
+                .append(Component.literal("Vertical render distance").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Maximum vertical distance at which the cloud layer renders.
@@ -298,14 +298,14 @@ public class EanCommandHelp {
 
                         """
                 ))
-                .append(Text.literal("Default value: 1000 (blocks)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: 1000 (blocks)").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text horizontalRenderDistance(){
-        return Text.literal("\n")
-                .append(Text.literal("Horizontal render distance").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component horizontalRenderDistance(){
+        return Component.literal("\n")
+                .append(Component.literal("Horizontal render distance").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Area of the sky that the selected cloud layer will occupy.
@@ -313,14 +313,14 @@ public class EanCommandHelp {
 
                         """
                 ))
-                .append(Text.literal("Default value: 15 (chunks) (Vanilla value)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: 15 (chunks) (Vanilla value)").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text lodRenderDistance(){
-        return Text.literal("\n")
-                .append(Text.literal("LOD render distance").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component lodRenderDistance(){
+        return Component.literal("\n")
+                .append(Component.literal("LOD render distance").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Vertical distance at which LOD clouds will change.
@@ -331,28 +331,28 @@ public class EanCommandHelp {
 
                         """
                 ))
-                .append(Text.literal("Default value: 150 (blocks)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: 150 (blocks)").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text thickness(){
-        return Text.literal("\n")
-                .append(Text.literal("Cloud thickness").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component thickness(){
+        return Component.literal("\n")
+                .append(Component.literal("Cloud thickness").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Amount of blocks that the clouds will occupy vertically.
 
                         """
                 ))
-                .append(Text.literal("Default value: 4 (blocks) (Vanilla value)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: 4 (blocks) (Vanilla value)").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text color(){
-        return Text.literal("\n")
-                .append(Text.literal("Cloud color").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [hexadecimal]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component color(){
+        return Component.literal("\n")
+                .append(Component.literal("Cloud color").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [hexadecimal]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Color that the clouds will be rendered with.
@@ -360,14 +360,14 @@ public class EanCommandHelp {
 
                         """
                 ))
-                .append(Text.literal("Default value: FFFFFF (white) (Vanilla value)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: FFFFFF (white) (Vanilla value)").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text opacity(){
-        return Text.literal("\n")
-                .append(Text.literal("Cloud opacity").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component opacity(){
+        return Component.literal("\n")
+                .append(Component.literal("Cloud opacity").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Opacity that the clouds will be rendered with.
@@ -375,14 +375,14 @@ public class EanCommandHelp {
 
                         """
                 ))
-                .append(Text.literal("Default value: 0.8 (Vanilla value)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: 0.8 (Vanilla value)").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text shading(){
-        return Text.literal("\n")
-                .append(Text.literal("Cloud shading").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [true/false]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component shading(){
+        return Component.literal("\n")
+                .append(Component.literal("Cloud shading").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [true/false]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         The different sides of the clouds will have different tones.
@@ -390,14 +390,14 @@ public class EanCommandHelp {
 
                         """
                 ))
-                .append(Text.literal("Default value: true (Vanilla value)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: true (Vanilla value)").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text speed(){
-        return Text.literal("\n")
-                .append(Text.literal("Cloud speed").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [numerical]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component speed(){
+        return Component.literal("\n")
+                .append(Component.literal("Cloud speed").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [numerical]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Speed at which the clouds will travel.
@@ -407,14 +407,14 @@ public class EanCommandHelp {
 
                         """
                 ))
-                .append(Text.literal("Default value: 1.0 (x1.0 speed) (Vanilla value)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: 1.0 (x1.0 speed) (Vanilla value)").withStyle(ChatFormatting.AQUA));
     }
 
-    public static Text skyEffects(){
-        return Text.literal("\n")
-                .append(Text.literal("Sky effects").formatted(Formatting.BOLD).formatted(Formatting.GOLD))
-                .append(Text.literal(" [true/false]\n").formatted(Formatting.BOLD).formatted(Formatting.DARK_AQUA))
-                .append(Text.of(
+    public static Component skyEffects(){
+        return Component.literal("\n")
+                .append(Component.literal("Sky effects").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD))
+                .append(Component.literal(" [true/false]\n").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_AQUA))
+                .append(Component.nullToEmpty(
                         """
                         
                         Clouds turn darker at night and under weather conditions.
@@ -422,6 +422,6 @@ public class EanCommandHelp {
 
                         """
                 ))
-                .append(Text.literal("Default value: true (Vanilla value)").formatted(Formatting.AQUA));
+                .append(Component.literal("Default value: true (Vanilla value)").withStyle(ChatFormatting.AQUA));
     }
 }

@@ -2,14 +2,14 @@ package com.github.Soulphur0.behaviour.server;
 
 import com.github.Soulphur0.config.singletons.FlightConfig;
 import com.github.Soulphur0.utils.EanFlight;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.Vec3;
 
 public class EanFlightBehaviour {
 
     // : Flight entry point for injection/modification.
-    static public Vec3d ean_flightBehaviour(LivingEntity player, Vec3d original){
+    static public Vec3 ean_flightBehaviour(LivingEntity player, Vec3 original){
         FlightConfig configInstance = FlightConfig.getOrCreateInstance();
 
         // = Return original vector if altitude-determined speed is disabled.
@@ -17,12 +17,12 @@ public class EanFlightBehaviour {
             return original;
 
         // + Calculate movement vector with speed based on altitude and apply vanilla transformation.
-        Vec3d movementVector = ean_calcFlightMovementVector(player);
+        Vec3 movementVector = ean_calcFlightMovementVector(player);
         return movementVector.multiply(0.99f, 0.98f, 0.99f);
     }
 
     // : Calculations.
-    private static Vec3d ean_calcFlightMovementVector(LivingEntity player){
+    private static Vec3 ean_calcFlightMovementVector(LivingEntity player){
         double fallSpeedConstant = 0.08;
         double verticalSpeedValue;
         double horizontalSpeedValue;
@@ -31,27 +31,27 @@ public class EanFlightBehaviour {
         // * Clamp the calculated modified speed to not be below or over the speed range.
         double altitudeCalculatedSpeed = EanFlight.getAltitudeCalculatedSpeed(player);
 
-        Vec3d movementVector = player.getVelocity();
+        Vec3 movementVector = player.getDeltaMovement();
         if (movementVector.y > -0.5) {
             player.fallDistance = 1.0f;
         }
 
-        Vec3d rotationVector = player.getRotationVector();
-        float pitchInRadians = player.getPitch() * ((float)Math.PI / 180);
+        Vec3 rotationVector = player.getLookAngle();
+        float pitchInRadians = player.getXRot() * ((float)Math.PI / 180);
         double angleToTheGround = Math.sqrt(rotationVector.x * rotationVector.x + rotationVector.z * rotationVector.z);
-        double speed = movementVector.horizontalLength();
+        double speed = movementVector.horizontalDistance();
         double rotationVectorLength = rotationVector.length();
 
         // $ Vertical speed calculations
 
         // + Calculate the fall speed multiplier based on the player's flight pitch.
-        float fallSpeedMultiplier = MathHelper.cos(pitchInRadians);
+        float fallSpeedMultiplier = Mth.cos(pitchInRadians);
         fallSpeedMultiplier = (float)((double)fallSpeedMultiplier * ((double)fallSpeedMultiplier * Math.min(1.0, rotationVectorLength / 0.4)));
 
         // + Make the player always lose altitude.
         // * A greater flight pitch and therefore fallSpeedMultiplier, lead to a greater downwards vertical velocity.
         // % Set Y=0.0 to turn off downwards speed.
-        movementVector = player.getVelocity().add(0.0, fallSpeedConstant * (-1.0 + (double)fallSpeedMultiplier * 0.75), 0.0);
+        movementVector = player.getDeltaMovement().add(0.0, fallSpeedConstant * (-1.0 + (double)fallSpeedMultiplier * 0.75), 0.0);
 
         // $ Horizontal speed and movement vector calculations
 
@@ -75,7 +75,7 @@ public class EanFlightBehaviour {
         // + Looking over the horizon
         // * Vertical speed decreases with the player realtime speed.
         if (pitchInRadians < 0.0f && angleToTheGround > 0.0) {
-            verticalSpeedValue = speed * (double)(-MathHelper.sin(pitchInRadians)) * 0.04;
+            verticalSpeedValue = speed * (double)(-Mth.sin(pitchInRadians)) * 0.04;
 
             movementVector = movementVector.add(-rotationVector.x * verticalSpeedValue / angleToTheGround, Math.min((verticalSpeedValue * 3.2), 0.1D), -rotationVector.z * verticalSpeedValue / angleToTheGround);
         }

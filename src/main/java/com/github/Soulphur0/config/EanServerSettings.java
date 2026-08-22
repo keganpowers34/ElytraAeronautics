@@ -3,15 +3,13 @@ package com.github.Soulphur0.config;
 import com.github.Soulphur0.config.constants.ChunkUnloadingConditions;
 import com.github.Soulphur0.config.singletons.FlightConfig;
 import com.github.Soulphur0.config.singletons.WorldRenderingConfig;
-import com.github.Soulphur0.networking.server.EanServerSettingsPacket;
-import com.github.Soulphur0.networking.server.EanServerSettingsPacketSerializer;
-import net.minecraft.network.PacketByteBuf;
+import com.github.Soulphur0.networking.payload.EanServerSettingsPayload;
+import net.minecraft.network.FriendlyByteBuf;
 
 /**
  * Class for EanServerSettings objects.<br><br>
  * This class, unlike the rest of config classes, is not a singleton, but rather an object that is instantiated whenever server's settings need to be packed to be sent to a client.<br><br>
- * @see EanServerSettingsPacket
- * @see EanServerSettingsPacketSerializer
+ * @see EanServerSettingsPayload
  * */
 public class EanServerSettings {
 
@@ -39,10 +37,7 @@ public class EanServerSettings {
     // . NETWORKING
 
     // ? Write to the packet buff all server-dependant config values sequentially.
-    public void writeToBuffer(PacketByteBuf buf){
-        // + Packet type identifier
-        buf.writeInt(0);
-
+    public void writeToBuffer(FriendlyByteBuf buf){
         // + Flight settings
         buf.writeBoolean(flightConfigInstance.isAltitudeDeterminesSpeed());
         buf.writeDouble(flightConfigInstance.getMinSpeed());
@@ -55,18 +50,14 @@ public class EanServerSettings {
 
         // + World rendering settings
         buf.writeBoolean(worldRenderingConfigInstance.isUseEanChunkUnloading());
-        buf.writeEnumConstant(worldRenderingConfigInstance.getChunkUnloadingCondition());
+        buf.writeEnum(worldRenderingConfigInstance.getChunkUnloadingCondition());
         buf.writeDouble(worldRenderingConfigInstance.getUnloadingSpeed());
         buf.writeDouble(worldRenderingConfigInstance.getUnloadingHeight());
     }
 
     // ? Read from the packet buff all server-dependant config values sequentially.
     // ¿ Used to rebuild this class object from a received packet.
-    public static EanServerSettings createFromBuffer(PacketByteBuf buf){
-        // + Skip the packet type identifier.
-        // * This is not needed to build the server settings object.
-        buf.skipBytes(0);
-
+    public static EanServerSettings createFromBuffer(FriendlyByteBuf buf){
         // + Flight settings
         boolean altitudeDeterminesSpeed = buf.readBoolean();
         double minSpeed = buf.readDouble();
@@ -79,7 +70,7 @@ public class EanServerSettings {
 
         // + World rendering settings
         boolean useEanChunkUnloading = buf.readBoolean();
-        ChunkUnloadingConditions chunkUnloadingCondition = buf.readEnumConstant(ChunkUnloadingConditions.class);
+        ChunkUnloadingConditions chunkUnloadingCondition = buf.readEnum(ChunkUnloadingConditions.class);
         double chunkUnloadingSpeed = buf.readDouble();
         double chunkUnloadingHeight = buf.readDouble();
 

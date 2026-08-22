@@ -1,20 +1,18 @@
 package com.github.Soulphur0.config.command;
 
 import com.github.Soulphur0.config.constants.*;
-import com.github.Soulphur0.config.singletons.CloudConfig;
 import com.github.Soulphur0.config.singletons.FlightConfig;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import net.minecraft.server.command.ServerCommandSource;
-
 import java.util.ArrayList;
 import java.util.Collection;
+import net.minecraft.commands.CommandSourceStack;
 
 public class EanCommandSuggester {
 
     // ? Get suggestions for argument two.
     // ¿ They are either a config option or a subcommand.
-    public static Collection<String> suggestArgument2(CommandContext<ServerCommandSource> context){
+    public static Collection<String> suggestArgument2(CommandContext<CommandSourceStack> context){
         // + Get arguments from context.
         String configMode = StringArgumentType.getString(context, "configMode");
 
@@ -47,7 +45,7 @@ public class EanCommandSuggester {
 
     // ? Get suggestions for argument three.
     // ¿ They are either suggestions for subcommands or -help for the option values.
-    public static Collection<String> suggestArgument3(CommandContext<ServerCommandSource> context){
+    public static Collection<String> suggestArgument3(CommandContext<CommandSourceStack> context){
         // + Get arguments from context.
         String configMode = StringArgumentType.getString(context, "configMode");
         String arg2 = StringArgumentType.getString(context, "arg2");
@@ -58,14 +56,13 @@ public class EanCommandSuggester {
         if (configMode.equals("CloudConfig")){
             switch (arg2) {
                 // - Suggestions for cloud layer number.
+                // ! CloudConfig lives in the client-only source set (its layers hold live render buffers),
+                // ! so this server-side suggester can't read the real layer count anymore under split source sets.
+                // ! Suggest a generous fixed range instead - Brigadier suggestions are just a UX hint, not validation.
                 case "configCloudLayer" -> {
                     suggestions.add("all");
-                    try {
-                        for (int i = 1; i <= CloudConfig.cloudLayers.length; i++) {
-                            suggestions.add(String.valueOf(i));
-                        }
-                    } catch (NullPointerException e) {
-                        suggestions.add("all");
+                    for (int i = 1; i <= 20; i++) {
+                        suggestions.add(String.valueOf(i));
                     }
                 }
                 // - Suggestions for cloud preset.
@@ -89,7 +86,7 @@ public class EanCommandSuggester {
 
     // ? Get suggestions for argument four.
     // ¿ They are config options for subcommands.
-    public static Collection<String> suggestArgument4(CommandContext<ServerCommandSource> context){
+    public static Collection<String> suggestArgument4(CommandContext<CommandSourceStack> context){
         // + Get arguments from context.
         String configMode = StringArgumentType.getString(context, "configMode");
 
@@ -107,7 +104,7 @@ public class EanCommandSuggester {
 
     // ? Get suggestions for argument five.
     // ¿ They are -help values for subcommand config options.
-    public static Collection<String> suggestArgument5(CommandContext<ServerCommandSource> context){
+    public static Collection<String> suggestArgument5(CommandContext<CommandSourceStack> context){
         // + Get arguments from context.
         String arg4 = StringArgumentType.getString(context, "arg4");
 

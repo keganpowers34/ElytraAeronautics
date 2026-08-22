@@ -1,26 +1,12 @@
 {
   "required": true,
-  "minVersion": "0.8",
   "package": "com.github.Soulphur0.mixin",
-  "compatibilityLevel": "JAVA_16",
+  "compatibilityLevel": "JAVA_25",
   "mixins": [
     "EntityMixin",
     "FireworkRocketEntityMixin",
     "LivingEntityMixin",
-    "ServerPlayerEntityMixin",
     "ThreadedAnvilStorageMixin"
-  ],
-  "client": [
-    "BackgroundRendererMixin",
-    "BubbleColumnSoundPlayerMixin",
-    "CameraMixin",
-    "ClientPlayerEntityMixin",
-    "ClientWorldMixin",
-    "DebugHudMixin",
-    "GameRendererMixin",
-    "MinecraftClientMixin",
-    "WorldRendererAccessors",
-    "WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

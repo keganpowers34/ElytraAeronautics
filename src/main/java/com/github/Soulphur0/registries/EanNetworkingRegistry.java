@@ -1,21 +1,22 @@
 package com.github.Soulphur0.registries;
 
-import com.github.Soulphur0.networking.server.EanServerPacketDispatcher;
+import com.github.Soulphur0.networking.EanPlayerDataCache;
+import com.github.Soulphur0.networking.payload.EanChunkLoadingPayload;
+import com.github.Soulphur0.networking.payload.EanClientSettingsPayload;
+import com.github.Soulphur0.networking.payload.EanServerSettingsPayload;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.util.Identifier;
 
 public class EanNetworkingRegistry {
 
-    // . S2C packet IDs
-    public static final Identifier CONFIG_SYNC_PACKET_ID = new Identifier("ean", "sync_config");
-    public static final Identifier CLIENT_CONFIG_PACKET_ID = new Identifier("ean", "client_config");
-
-    // . C2S packet IDs
-    public static final Identifier CLIENT_CHUNK_LOADING_ID = new Identifier("ean", "client_chunk_loading");
-
     public static void registerEanServerReceivers(){
-        ServerPlayNetworking.registerGlobalReceiver(CLIENT_CHUNK_LOADING_ID, new EanServerPacketDispatcher());
+        // . S2C payload types
+        PayloadTypeRegistry.clientboundPlay().register(EanServerSettingsPayload.TYPE, EanServerSettingsPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(EanClientSettingsPayload.TYPE, EanClientSettingsPayload.CODEC);
+
+        // . C2S payload type + receiver
+        PayloadTypeRegistry.serverboundPlay().register(EanChunkLoadingPayload.TYPE, EanChunkLoadingPayload.CODEC);
+        ServerPlayNetworking.registerGlobalReceiver(EanChunkLoadingPayload.TYPE, (payload, context) ->
+                EanPlayerDataCache.setOrUpdateCanPlayerLoadChunks(payload.playerUuid(), payload.canLoadChunks()));
     }
-
-
 }

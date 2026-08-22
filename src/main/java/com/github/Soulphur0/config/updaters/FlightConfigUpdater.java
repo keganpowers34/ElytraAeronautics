@@ -6,9 +6,9 @@ import com.github.Soulphur0.networking.server.EanServerPacketSender;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
 
 /** Updates cloud settings changed via command on the server itself, and sends a custom packet to sync the settings with all clients.<br><br>
  *  Made into a separate class from the config singleton in order to keep things ordered.<br><br>
@@ -17,16 +17,16 @@ import net.minecraft.util.Formatting;
  * */
 public class FlightConfigUpdater {
 
-    public static void setAltitudeDeterminesSpeed(String value, CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    public static void setAltitudeDeterminesSpeed(String value, CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         // _ Print help if the value was -help.
         if (value.equals("-help")){
-            context.getSource().sendMessage(EanCommandHelp.setAltitudeDeterminesSpeed());
+            context.getSource().sendSystemMessage(EanCommandHelp.setAltitudeDeterminesSpeed());
             return;
         }
 
         // _ Validate value.
         if(!(value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))){
-            context.getSource().sendMessage(Text.translatable("command.error.value.boolean").formatted(Formatting.RED));
+            context.getSource().sendSystemMessage(Component.translatable("command.error.value.boolean").withStyle(ChatFormatting.RED));
             return;
         }
 
@@ -44,16 +44,16 @@ public class FlightConfigUpdater {
 
             // Notify command's source of the changes.
             String message = (altitudeDeterminesSpeed) ? "Altitude now determines elytra flight speed." : "Altitude no longer determines elytra flight speed.";
-            context.getSource().sendMessage(Text.of(message));
+            context.getSource().sendSystemMessage(Component.nullToEmpty(message));
         } catch (Exception e){
-            throw new SimpleCommandExceptionType(Text.translatable("command.error.value")).create();
+            throw new SimpleCommandExceptionType(Component.translatable("command.error.value")).create();
         }
     }
 
-    public static void setMinSpeed(String value, CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    public static void setMinSpeed(String value, CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         // _ Print help if the value was -help.
         if (value.equals("-help")){
-            context.getSource().sendMessage(EanCommandHelp.setMinSpeed());
+            context.getSource().sendSystemMessage(EanCommandHelp.setMinSpeed());
             return;
         }
 
@@ -71,16 +71,16 @@ public class FlightConfigUpdater {
 
             // Notify command's source of the changes.
             String message = "Minimum flight speed is now " + value + "m/s";
-            context.getSource().sendMessage(Text.of(message));
+            context.getSource().sendSystemMessage(Component.nullToEmpty(message));
         } catch (NumberFormatException e){
-            throw new SimpleCommandExceptionType(Text.translatable("command.error.value")).create();
+            throw new SimpleCommandExceptionType(Component.translatable("command.error.value")).create();
         }
     }
 
-    public static void setMaxSpeed(String value, CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    public static void setMaxSpeed(String value, CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         // _ Print help if the value was -help.
         if (value.equals("-help")){
-            context.getSource().sendMessage(EanCommandHelp.setMaxSpeed());
+            context.getSource().sendSystemMessage(EanCommandHelp.setMaxSpeed());
             return;
         }
 
@@ -98,16 +98,16 @@ public class FlightConfigUpdater {
 
             // Notify command's source of the changes.
             String message = "Maximum flight speed is now " + value + "m/s";
-            context.getSource().sendMessage(Text.of(message));
+            context.getSource().sendSystemMessage(Component.nullToEmpty(message));
         } catch (NumberFormatException e){
-            throw new SimpleCommandExceptionType(Text.translatable("command.error.value")).create();
+            throw new SimpleCommandExceptionType(Component.translatable("command.error.value")).create();
         }
     }
 
-    public static void setMinHeight(String value, CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    public static void setMinHeight(String value, CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         // _ Print help if the value was -help.
         if (value.equals("-help")){
-            context.getSource().sendMessage(EanCommandHelp.setMinHeight());
+            context.getSource().sendSystemMessage(EanCommandHelp.setMinHeight());
             return;
         }
 
@@ -125,16 +125,16 @@ public class FlightConfigUpdater {
 
             // Notify command's source of the changes.
             String message = "The minimum height at which flight speed increases is now " + value + "m of altitude.";
-            context.getSource().sendMessage(Text.of(message));
+            context.getSource().sendSystemMessage(Component.nullToEmpty(message));
         } catch (NumberFormatException e){
-            throw new SimpleCommandExceptionType(Text.translatable("command.error.value")).create();
+            throw new SimpleCommandExceptionType(Component.translatable("command.error.value")).create();
         }
     }
 
-    public static void setMaxHeight(String value, CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    public static void setMaxHeight(String value, CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         // _ Print help if the value was -help.
         if (value.equals("-help")){
-            context.getSource().sendMessage(EanCommandHelp.setMaxHeight());
+            context.getSource().sendSystemMessage(EanCommandHelp.setMaxHeight());
             return;
         }
 
@@ -152,22 +152,22 @@ public class FlightConfigUpdater {
 
             // Notify command's source of the changes.
             String message = "The maximum height at which flight speed increases is now " + value + "m of altitude.";
-            context.getSource().sendMessage(Text.of(message));
+            context.getSource().sendSystemMessage(Component.nullToEmpty(message));
         } catch (NumberFormatException e){
-            throw new SimpleCommandExceptionType(Text.translatable("command.error.value")).create();
+            throw new SimpleCommandExceptionType(Component.translatable("command.error.value")).create();
         }
     }
 
-    public static void setSneakingRealignsPitch(String value, CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    public static void setSneakingRealignsPitch(String value, CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         // _ Print help if the value was -help.
         if (value.equals("-help")){
-            context.getSource().sendMessage(EanCommandHelp.setSneakingRealignsPitch());
+            context.getSource().sendSystemMessage(EanCommandHelp.setSneakingRealignsPitch());
             return;
         }
 
         // _ Validate value.
         if(!(value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))){
-            context.getSource().sendMessage(Text.translatable("command.error.value.boolean").formatted(Formatting.RED));
+            context.getSource().sendSystemMessage(Component.translatable("command.error.value.boolean").withStyle(ChatFormatting.RED));
             return;
         }
 
@@ -185,16 +185,16 @@ public class FlightConfigUpdater {
 
             // Notify command's source of the changes.
             String message = (sneakingRealignsPitch) ? "Sneaking mid flight now realigns flight pitch." : "Sneaking mid flight no longer realigns flight pitch.";
-            context.getSource().sendMessage(Text.of(message));
+            context.getSource().sendSystemMessage(Component.nullToEmpty(message));
         } catch (Exception e){
-            throw new SimpleCommandExceptionType(Text.translatable("command.error.value")).create();
+            throw new SimpleCommandExceptionType(Component.translatable("command.error.value")).create();
         }
     }
 
-    public static void setRealignAngle(String value, CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    public static void setRealignAngle(String value, CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         // _ Print help if the value was -help.
         if (value.equals("-help")){
-            context.getSource().sendMessage(EanCommandHelp.setRealignAngle());
+            context.getSource().sendSystemMessage(EanCommandHelp.setRealignAngle());
             return;
         }
 
@@ -212,16 +212,16 @@ public class FlightConfigUpdater {
 
             // Notify command's source of the changes.
             String message = "The realign angle is now set to " + value + " degrees.";
-            context.getSource().sendMessage(Text.of(message));
+            context.getSource().sendSystemMessage(Component.nullToEmpty(message));
         } catch (NumberFormatException e){
-            throw new SimpleCommandExceptionType(Text.translatable("command.error.value")).create();
+            throw new SimpleCommandExceptionType(Component.translatable("command.error.value")).create();
         }
     }
 
-    public static void setRealignRate(String value, CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    public static void setRealignRate(String value, CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         // _ Print help if the value was -help.
         if (value.equals("-help")){
-            context.getSource().sendMessage(EanCommandHelp.setRealignRate());
+            context.getSource().sendSystemMessage(EanCommandHelp.setRealignRate());
             return;
         }
 
@@ -239,9 +239,9 @@ public class FlightConfigUpdater {
 
             // Notify command's source of the changes.
             String message =  "The realign rate is now set to " + value + " degrees-per-tick.";
-            context.getSource().sendMessage(Text.of(message));
+            context.getSource().sendSystemMessage(Component.nullToEmpty(message));
         } catch (NumberFormatException e){
-            throw new SimpleCommandExceptionType(Text.translatable("command.error.value")).create();
+            throw new SimpleCommandExceptionType(Component.translatable("command.error.value")).create();
         }
     }
 }

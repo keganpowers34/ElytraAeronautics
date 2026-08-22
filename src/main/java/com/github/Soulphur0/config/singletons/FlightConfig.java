@@ -68,7 +68,7 @@ public class FlightConfig {
 
     //. NETWORKING
     // ? Method to update the current singleton instance with the server's.
-    // ¿ Called in the EanClientPacketDispatcher class' receive() method. Basically a named setter; although not directly related with networking, labeled as such for clarity purposes.
+    // ¿ Called from the client-side EanServerSettingsPayload receiver. Basically a named setter; although not directly related with networking, labeled as such for clarity purposes.
     public static void updateClientSettings(FlightConfig flightConfig){
         instance = flightConfig;
     }

@@ -7,11 +7,12 @@ import com.github.Soulphur0.networking.server.EanServerPacketSender;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-
 import java.util.Set;
+import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.permissions.Permission;
+import net.minecraft.server.permissions.PermissionLevel;
 
 public class EanCommandExecutor {
 
@@ -19,11 +20,11 @@ public class EanCommandExecutor {
 
     // ? Run command for the second execution point.
     // ¿ This point configures flight settings, general cloud settings & world rendering settings.
-    public static void executionPoint2(String configMode, String option, String value, CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    public static void executionPoint2(String configMode, String option, String value, CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
 
         // + Validate high permission commands.
-        if (highPermissionSettings.contains(configMode) && !context.getSource().hasPermissionLevel(4)){
-            context.getSource().sendMessage(Text.literal("You require to be an operator in order to change server-side settings.").formatted(Formatting.RED));
+        if (highPermissionSettings.contains(configMode) && !context.getSource().permissions().hasPermission(new Permission.HasCommandLevel(PermissionLevel.OWNERS))){
+            context.getSource().sendSystemMessage(Component.literal("You require to be an operator in order to change server-side settings.").withStyle(ChatFormatting.RED));
             return;
         }
 
@@ -39,7 +40,7 @@ public class EanCommandExecutor {
                     case "sneakingRealignsPitch" -> FlightConfigUpdater.setSneakingRealignsPitch(value, context);
                     case "realignAngle" -> FlightConfigUpdater.setRealignAngle(value, context);
                     case "realignRate" -> FlightConfigUpdater.setRealignRate(value, context);
-                    default -> throw new SimpleCommandExceptionType(Text.translatable("command.error.value")).create();
+                    default -> throw new SimpleCommandExceptionType(Component.translatable("command.error.value")).create();
                 }
             }
             case "CloudConfig" -> {
@@ -47,7 +48,7 @@ public class EanCommandExecutor {
                     case "useEanCloudRendering" -> EanServerPacketSender.sendUpdatedClientConfig(new EanClientSettings("generalCloudConfig","useEanCloudRendering", value), context);
                     case "setCloudLayerAmount" -> EanServerPacketSender.sendUpdatedClientConfig(new EanClientSettings("generalCloudConfig","setCloudLayerAmount", value), context);
                     case "loadPreset" -> EanServerPacketSender.sendUpdatedClientConfig(new EanClientSettings("generalCloudConfig","loadPreset", value), context);
-                    default -> throw new SimpleCommandExceptionType(Text.translatable("command.error.value")).create();
+                    default -> throw new SimpleCommandExceptionType(Component.translatable("command.error.value")).create();
                 }
             }
             case "WorldRenderingConfig" -> {
@@ -56,7 +57,7 @@ public class EanCommandExecutor {
                     case "setChunkUnloadingCondition" -> WorldRenderingConfigUpdater.setChunkUnloadingCondition(value, context);
                     case "setChunkUnloadingSpeed" -> WorldRenderingConfigUpdater.setChunkUnloadingSpeed(value, context);
                     case "setChunkUnloadingHeight" -> WorldRenderingConfigUpdater.setChunkUnloadingHeight(value, context);
-                    default -> throw new SimpleCommandExceptionType(Text.translatable("command.error.value")).create();
+                    default -> throw new SimpleCommandExceptionType(Component.translatable("command.error.value")).create();
                 }
             }
         }
@@ -64,7 +65,7 @@ public class EanCommandExecutor {
 
     // ? Run command for the third execution point.
     // ¿ This point configures cloudLayerConfig settings.
-    public static void executionPoint3(String configMode, String option1, String option2, String value, CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    public static void executionPoint3(String configMode, String option1, String option2, String value, CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
 
         // + This is the execution point for in the CloudConfig context.
         // * option1 == cloudLayerNumber
@@ -82,7 +83,7 @@ public class EanCommandExecutor {
                 case "shading" -> EanServerPacketSender.sendUpdatedClientConfig(new EanClientSettings("cloudLayerConfig","shading", option1, value), context);
                 case "speed" -> EanServerPacketSender.sendUpdatedClientConfig(new EanClientSettings("cloudLayerConfig","speed", option1, value), context);
                 case "skyEffects" -> EanServerPacketSender.sendUpdatedClientConfig(new EanClientSettings("cloudLayerConfig","skyEffects", option1, value), context);
-                default -> throw new SimpleCommandExceptionType(Text.translatable("command.error.attribute")).create();
+                default -> throw new SimpleCommandExceptionType(Component.translatable("command.error.attribute")).create();
             }
         }
     }

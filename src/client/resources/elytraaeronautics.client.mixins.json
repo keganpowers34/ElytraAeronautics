@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "com.github.Soulphur0.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "BackgroundRendererMixin",
+    "BubbleColumnSoundPlayerMixin",
+    "CameraMixin",
+    "ClientPlayerEntityMixin",
+    "ClientWorldMixin",
+    "CloudRendererInvoker",
+    "CloudRendererMixin",
+    "MinecraftClientMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

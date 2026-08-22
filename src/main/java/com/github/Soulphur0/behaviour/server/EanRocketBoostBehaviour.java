@@ -2,19 +2,19 @@ package com.github.Soulphur0.behaviour.server;
 
 import com.github.Soulphur0.config.singletons.FlightConfig;
 import com.github.Soulphur0.utils.EanFlight;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.Vec3;
 
 public class EanRocketBoostBehaviour {
 
-    public static Vec3d calcFireworkRocketBoost(LivingEntity shooter, Vec3d... original){
+    public static Vec3 calcFireworkRocketBoost(LivingEntity shooter, Vec3... original){
         FlightConfig configInstance = FlightConfig.getOrCreateInstance();
 
         if (!configInstance.isAltitudeDeterminesSpeed() && original != null)
             return original[0];
 
-        Vec3d shooterRotation = shooter.getRotationVector();
-        Vec3d shooterVelocity = shooter.getVelocity();
+        Vec3 shooterRotation = shooter.getLookAngle();
+        Vec3 shooterVelocity = shooter.getDeltaMovement();
 
         double speedMultiplier = 1.5;
 

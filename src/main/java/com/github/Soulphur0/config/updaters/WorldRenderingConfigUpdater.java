@@ -7,22 +7,22 @@ import com.github.Soulphur0.networking.server.EanServerPacketSender;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
 
 public class WorldRenderingConfigUpdater {
 
-    public static void setUseEanChunkUnloading(String value, CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    public static void setUseEanChunkUnloading(String value, CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         // _ Print help if the value was -help.
         if (value.equals("-help")){
-            context.getSource().sendMessage(EanCommandHelp.setUseEanChunkUnloading());
+            context.getSource().sendSystemMessage(EanCommandHelp.setUseEanChunkUnloading());
             return;
         }
 
         // _ Validate value.
         if(!(value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false"))){
-            context.getSource().sendMessage(Text.translatable("command.error.value.boolean").formatted(Formatting.RED));
+            context.getSource().sendSystemMessage(Component.translatable("command.error.value.boolean").withStyle(ChatFormatting.RED));
             return;
         }
 
@@ -40,16 +40,16 @@ public class WorldRenderingConfigUpdater {
 
             // Notify command's source of the changes.
             String message = (useEanChunkUnloading) ? "Chunk unloading is now enabled." : "Chunk unloading is now disabled.";
-            context.getSource().sendMessage(Text.of(message));
+            context.getSource().sendSystemMessage(Component.nullToEmpty(message));
         } catch (Exception e){
-            throw new SimpleCommandExceptionType(Text.translatable("command.error.value")).create();
+            throw new SimpleCommandExceptionType(Component.translatable("command.error.value")).create();
         }
     }
 
-    public static void setChunkUnloadingCondition(String value, CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    public static void setChunkUnloadingCondition(String value, CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         // _ Print help if the value was -help.
         if (value.equals("-help")){
-            context.getSource().sendMessage(EanCommandHelp.setChunkUnloadingCondition());
+            context.getSource().sendSystemMessage(EanCommandHelp.setChunkUnloadingCondition());
             return;
         }
 
@@ -67,16 +67,16 @@ public class WorldRenderingConfigUpdater {
 
             // Notify command's source of the changes.
             String message = "Set chunk unloading condition to " + chunkUnloadingCondition;
-            context.getSource().sendMessage(Text.of(message));
+            context.getSource().sendSystemMessage(Component.nullToEmpty(message));
         } catch (Exception e){
-            throw new SimpleCommandExceptionType(Text.translatable("command.error.value")).create();
+            throw new SimpleCommandExceptionType(Component.translatable("command.error.value")).create();
         }
     }
 
-    public static void setChunkUnloadingSpeed(String value, CommandContext<ServerCommandSource> context) throws CommandSyntaxException{
+    public static void setChunkUnloadingSpeed(String value, CommandContext<CommandSourceStack> context) throws CommandSyntaxException{
         // _ Print help if the value was -help.
         if (value.equals("-help")){
-            context.getSource().sendMessage(EanCommandHelp.setChunkUnloadingSpeed());
+            context.getSource().sendSystemMessage(EanCommandHelp.setChunkUnloadingSpeed());
             return;
         }
 
@@ -94,16 +94,16 @@ public class WorldRenderingConfigUpdater {
 
             // Notify command's source of the changes.
             String message = "The speed at which chunks will stop loading/generating when flying with elytra is now " + value + "m/s.";
-            context.getSource().sendMessage(Text.of(message));
+            context.getSource().sendSystemMessage(Component.nullToEmpty(message));
         } catch (NumberFormatException e){
-            throw new SimpleCommandExceptionType(Text.translatable("command.error.value")).create();
+            throw new SimpleCommandExceptionType(Component.translatable("command.error.value")).create();
         }
     }
 
-    public static void setChunkUnloadingHeight(String value, CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    public static void setChunkUnloadingHeight(String value, CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         // _ Print help if the value was -help.
         if (value.equals("-help")){
-            context.getSource().sendMessage(EanCommandHelp.setChunkUnloadingHeight());
+            context.getSource().sendSystemMessage(EanCommandHelp.setChunkUnloadingHeight());
             return;
         }
 
@@ -121,9 +121,9 @@ public class WorldRenderingConfigUpdater {
 
             // Notify command's source of the changes.
             String message = "The height at which chunks will stop loading/generating when flying with elytra is now " + value + "m of altitude.";
-            context.getSource().sendMessage(Text.of(message));
+            context.getSource().sendSystemMessage(Component.nullToEmpty(message));
         } catch (NumberFormatException e){
-            throw new SimpleCommandExceptionType(Text.translatable("command.error.value")).create();
+            throw new SimpleCommandExceptionType(Component.translatable("command.error.value")).create();
         }
     }
 }

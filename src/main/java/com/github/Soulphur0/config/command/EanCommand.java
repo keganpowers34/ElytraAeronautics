@@ -2,15 +2,15 @@ package com.github.Soulphur0.config.command;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.minecraft.command.CommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 
 import static com.mojang.brigadier.arguments.StringArgumentType.string;
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 /** Register and building point for the '/ean' command.<br><br>
  *  Suggestions and execution paths are handled on different classes to keep the already lengthy Brigadier functional interface chain as tidy as possible.<br><br>
@@ -22,13 +22,13 @@ public class EanCommand {
             // > Execution point 1
             // < Print help if only '/ean' was run.
             .executes(context -> {
-                ServerPlayerEntity player = context.getSource().getPlayer();
-                Text message = Text.literal("\n")
-                        .append(Text.literal("Type '/ean' and press TAB to see available options.\nWrite '-help' at the end of each option to see its usage and default values.\n\n").formatted(Formatting.GOLD))
-                        .append(Text.literal("You can read an in-depth guide about this command ").append(Text.literal("clicking here.\n").formatted(Formatting.UNDERLINE).styled((style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Soulphur0/Soulphur-Mods-ResoucesAndChangelogs/blob/main/ElytraAeronautics/mod_resources/ean_command_guide.md"))))));
+                ServerPlayer player = context.getSource().getPlayer();
+                Component message = Component.literal("\n")
+                        .append(Component.literal("Type '/ean' and press TAB to see available options.\nWrite '-help' at the end of each option to see its usage and default values.\n\n").withStyle(ChatFormatting.GOLD))
+                        .append(Component.literal("You can read an in-depth guide about this command ").append(Component.literal("clicking here.\n").withStyle(ChatFormatting.UNDERLINE).withStyle((style -> style.withClickEvent(new ClickEvent.OpenUrl(java.net.URI.create("https://github.com/Soulphur0/Soulphur-Mods-ResoucesAndChangelogs/blob/main/ElytraAeronautics/mod_resources/ean_command_guide.md")))))));
 
                 if (player != null)
-                    player.sendMessage(message);
+                    player.sendSystemMessage(message);
 
                 return 1;
             })
@@ -38,16 +38,16 @@ public class EanCommand {
                 .suggests((commandContext, suggestionsBuilder) -> {
                     String[] suggestions = {"FlightConfig", "CloudConfig", "WorldRenderingConfig"};
 
-                    return CommandSource.suggestMatching(suggestions, suggestionsBuilder);
+                    return SharedSuggestionProvider.suggest(suggestions, suggestionsBuilder);
                 })
                 // $ Argument 2
                 // € Choose config option/subcommand.
                 .then(argument("arg2", string())
-                    .suggests((commandContext, suggestionsBuilder) -> CommandSource.suggestMatching(EanCommandSuggester.suggestArgument2(commandContext), suggestionsBuilder))
+                    .suggests((commandContext, suggestionsBuilder) -> SharedSuggestionProvider.suggest(EanCommandSuggester.suggestArgument2(commandContext), suggestionsBuilder))
                     // $ Argument 3
                     // € Choose option value/subcommand option.
                     .then(argument("arg3", string())
-                        .suggests((commandContext, suggestionsBuilder) -> CommandSource.suggestMatching(EanCommandSuggester.suggestArgument3(commandContext), suggestionsBuilder))
+                        .suggests((commandContext, suggestionsBuilder) -> SharedSuggestionProvider.suggest(EanCommandSuggester.suggestArgument3(commandContext), suggestionsBuilder))
                         // > Execution point 2
                         // < Set value for FlightConfig, GeneralCloudConfig or WorldRenderingConfig options.
                         .executes(context -> {
@@ -61,11 +61,11 @@ public class EanCommand {
                         // $ Argument 4
                         // € Choose option/subcommand.
                         .then(argument("arg4", string())
-                            .suggests((commandContext, suggestionsBuilder) -> CommandSource.suggestMatching(EanCommandSuggester.suggestArgument4(commandContext), suggestionsBuilder))
+                            .suggests((commandContext, suggestionsBuilder) -> SharedSuggestionProvider.suggest(EanCommandSuggester.suggestArgument4(commandContext), suggestionsBuilder))
                             // $ Argument 5
                             // € Choose option/subcommand/value.
                             .then(argument("arg5", string())
-                                .suggests((commandContext, suggestionsBuilder) -> CommandSource.suggestMatching(EanCommandSuggester.suggestArgument5(commandContext), suggestionsBuilder))
+                                .suggests((commandContext, suggestionsBuilder) -> SharedSuggestionProvider.suggest(EanCommandSuggester.suggestArgument5(commandContext), suggestionsBuilder))
                                     // > Execution point 3
                                     // < Set value for configCloudLayer options.
                                     .executes(context -> {
